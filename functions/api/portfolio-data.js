@@ -3,7 +3,7 @@
 const SAVE_TOKEN = '8166980106d659e0c26365e4fc6f2f81fce696030ee4a44ce00dfcf7eb2495c2';
 const KEY = 'portfolio_state';
 // The site is served from GitHub Pages; only that origin may read/write.
-const ALLOWED_ORIGINS = ['https://thesarpandji.github.io', 'https://thesarpandji.pages.dev'];
+const ALLOWED_ORIGINS = ['https://thesarpandjiux.github.io', 'https://thesarpandji.pages.dev'];
 
 function headersFor(request) {
   const origin = request.headers.get('Origin');
