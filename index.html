@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — UI/UX Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --black: #0a0a0f;
+    --white: #f5f4f0;
+    --cream: #ede9de;
+    --accent: #c8ff00;
+    --accent2: #ff4d6d;
+    --muted: #9a9a8e;
+    --card-bg: #13131a;
+    --border: rgba(255,255,255,0.08);
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--black); color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+  body::before { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); opacity:.03; pointer-events:none; z-index:999; }
+  body::after { content:''; position:fixed; inset:0; background-image: linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px), linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px); background-size:60px 60px; pointer-events:none; z-index:0; }
+
+  /* NAV */
+  nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:20px 48px; backdrop-filter:blur(12px); background:rgba(10,10,15,0.6); border-bottom:1px solid var(--border); }
+  .nav-logo { font-family:'Syne',sans-serif; font-weight:800; font-size:22px; letter-spacing:-0.5px; color:var(--white); text-decoration:none; }
+  .nav-logo span { color:var(--accent); }
+  .nav-links { display:flex; gap:36px; list-style:none; }
+  .nav-links a { color:var(--muted); text-decoration:none; font-size:14px; transition:color 0.2s; }
+  .nav-links a:hover { color:var(--white); }
+  .nav-cta { background:var(--accent); color:var(--black); border:none; padding:10px 22px; border-radius:100px; font-family:'DM Sans',sans-serif; font-size:14px; font-weight:500; cursor:pointer; text-decoration:none; transition:transform 0.15s,opacity 0.15s; }
+  .nav-cta:hover { transform:scale(1.04); opacity:.9; }
+
+  /* HERO */
+  #hero { position:relative; min-height:100vh; display:flex; flex-direction:column; justify-content:center; padding:120px 48px 80px; z-index:1; overflow:hidden; }
+  .orb { position:absolute; border-radius:50%; pointer-events:none; filter:blur(80px); opacity:.18; }
+  .orb-1 { width:600px; height:600px; background:var(--accent); top:-200px; right:-150px; animation:drift 8s ease-in-out infinite alternate; }
+  .orb-2 { width:400px; height:400px; background:#7b2ff7; bottom:-100px; left:-100px; animation:drift 11s ease-in-out infinite alternate-reverse; }
+  .orb-3 { width:300px; height:300px; background:var(--accent2); top:40%; left:40%; animation:drift 9s ease-in-out infinite alternate; opacity:.1; }
+  @keyframes drift { from{transform:translate(0,0) scale(1);} to{transform:translate(30px,20px) scale(1.05);} }
+  .hero-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(200,255,0,0.1); border:1px solid rgba(200,255,0,0.3); border-radius:100px; padding:6px 16px; font-size:12px; font-weight:500; color:var(--accent); letter-spacing:.08em; text-transform:uppercase; margin-bottom:32px; width:fit-content; animation:fadeUp 0.8s ease both; }
+  .hero-badge::before { content:''; width:6px; height:6px; background:var(--accent); border-radius:50%; animation:pulse 2s ease infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:.5;transform:scale(1.4);} }
+  .hero-title { font-family:'Syne',sans-serif; font-weight:800; font-size:clamp(52px,8vw,110px); line-height:.95; letter-spacing:-.03em; max-width:900px; animation:fadeUp 0.8s 0.1s ease both; }
+  .hero-title .outline { -webkit-text-stroke:1.5px var(--white); color:transparent; }
+  .hero-title .accent-word { color:var(--accent); position:relative; display:inline-block; }
+  .hero-title .accent-word::after { content:''; position:absolute; bottom:-4px; left:0; right:0; height:3px; background:var(--accent); border-radius:2px; transform:scaleX(0); transform-origin:left; animation:scaleIn 0.6s 0.9s ease both; }
+  @keyframes scaleIn { from{transform:scaleX(0);} to{transform:scaleX(1);} }
+  .hero-sub { margin-top:36px; max-width:480px; color:var(--muted); font-size:18px; font-weight:300; line-height:1.7; animation:fadeUp 0.8s 0.2s ease both; }
+  .hero-actions { margin-top:48px; display:flex; gap:16px; align-items:center; flex-wrap:wrap; animation:fadeUp 0.8s 0.35s ease both; }
+  .btn-primary { background:var(--accent); color:var(--black); border:none; padding:14px 32px; border-radius:100px; font-family:'DM Sans',sans-serif; font-size:15px; font-weight:500; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:8px; transition:transform 0.15s,box-shadow 0.15s; }
+  .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 32px rgba(200,255,0,0.25); }
+  .btn-ghost { background:transparent; color:var(--white); border:1px solid var(--border); padding:14px 32px; border-radius:100px; font-family:'DM Sans',sans-serif; font-size:15px; font-weight:400; cursor:pointer; text-decoration:none; transition:border-color 0.2s,background 0.2s; }
+  .btn-ghost:hover { border-color:rgba(255,255,255,.3); background:rgba(255,255,255,.04); }
+  .scroll-hint { position:absolute; bottom:40px; left:48px; display:flex; align-items:center; gap:12px; color:var(--muted); font-size:12px; letter-spacing:.1em; text-transform:uppercase; animation:fadeUp 0.8s 0.5s ease both; }
+  .scroll-line { width:40px; height:1px; background:var(--muted); position:relative; overflow:hidden; }
+  .scroll-line::after { content:''; position:absolute; top:0; left:-40px; width:40px; height:100%; background:var(--accent); animation:slide 2s linear infinite; }
+  @keyframes slide { to{left:40px;} }
+  .hero-stats { position:absolute; right:48px; bottom:40px; display:flex; flex-direction:column; gap:24px; align-items:flex-end; animation:fadeUp 0.8s 0.45s ease both; }
+  .stat-item { text-align:right; }
+  .stat-num { font-family:'Syne',sans-serif; font-weight:700; font-size:28px; color:var(--white); line-height:1; }
+  .stat-label { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; margin-top:2px; }
+
+  /* MARQUEE */
+  .marquee-wrap { position:relative; z-index:1; border-top:1px solid var(--border); border-bottom:1px solid var(--border); overflow:hidden; padding:16px 0; background:rgba(255,255,255,0.015); }
+  .marquee-track { display:flex; width:max-content; animation:marquee 22s linear infinite; }
+  .marquee-track span { white-space:nowrap; font-family:'Syne',sans-serif; font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:.12em; color:var(--muted); padding:0 32px; }
+  .marquee-track span.dot { color:var(--accent); padding:0; font-size:20px; line-height:1; vertical-align:middle; }
+  @keyframes marquee { from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+  /* SECTION */
+  section { position:relative; z-index:1; padding:100px 48px; }
+  .section-tag { display:inline-flex; align-items:center; gap:8px; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:.12em; color:var(--accent); margin-bottom:20px; }
+  .section-tag::before { content:''; width:20px; height:1px; background:var(--accent); }
+  h2.section-title { font-family:'Syne',sans-serif; font-weight:700; font-size:clamp(36px,5vw,60px); line-height:1.05; letter-spacing:-.02em; max-width:700px; margin-bottom:60px; }
+
+  /* ABOUT */
+  .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; max-width:1200px; }
+  .about-text p { color:var(--muted); font-size:17px; line-height:1.8; margin-bottom:20px; font-weight:300; }
+  .about-text p strong { color:var(--white); font-weight:500; }
+  .skills-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .skill-card { background:var(--card-bg); border:1px solid var(--border); border-radius:12px; padding:20px; transition:border-color 0.2s,transform 0.2s; }
+  .skill-card:hover { border-color:rgba(200,255,0,.3); transform:translateY(-2px); }
+  .skill-icon { font-size:24px; margin-bottom:10px; display:block; }
+  .skill-name { font-family:'Syne',sans-serif; font-weight:600; font-size:15px; color:var(--white); margin-bottom:4px; }
+  .skill-desc { font-size:12px; color:var(--muted); }
+
+  /* WORK */
+  .work-header { display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:24px; margin-bottom:60px; }
+  .work-header .section-title { margin-bottom:0; }
+  .projects-grid { display:grid; grid-template-columns:repeat(12,1fr); grid-auto-rows:100px; gap:16px; max-width:1200px; }
+  .project-card { position:relative; background:var(--card-bg); border:1px solid var(--border); border-radius:20px; overflow:hidden; cursor:pointer; text-decoration:none; color:inherit; display:block; transition:border-color 0.25s,transform 0.25s; }
+  .project-card:hover { border-color:rgba(255,255,255,.2); transform:translateY(-4px); }
+  .project-card:hover .project-arrow { transform:translate(2px,-2px); }
+  .project-card:hover .card-overlay { opacity:1; }
+  .card-lg { grid-column:span 7; grid-row:span 4; }
+  .card-md { grid-column:span 5; grid-row:span 4; }
+  .card-sm { grid-column:span 4; grid-row:span 3; }
+  .card-visual { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+  .card-visual-1 { background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460); }
+  .card-visual-2 { background:linear-gradient(135deg,#1e0a2e,#2d1b69,#11998e); }
+  .card-visual-3 { background:linear-gradient(135deg,#0f0f0f,#1a0a00,#3d1500); }
+  .card-visual-4 { background:linear-gradient(135deg,#001a0d,#004d26,#00a550); }
+  .card-visual-5 { background:linear-gradient(135deg,#1a0a20,#3d0e61,#7b2ff7); }
+  .card-visual-6 { background:linear-gradient(135deg,#1a1000,#3d2e00,#c8a000); }
+  .card-visual-7 { background:linear-gradient(135deg,#001a20,#00404d,#00b4cc); }
+  .card-visual-8 { background:linear-gradient(135deg,#1a0010,#4d0030,#cc006b); }
+  .card-mock { width:85%; height:75%; border-radius:10px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); display:flex; flex-direction:column; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,.5); }
+  .mock-bar { height:28px; background:rgba(255,255,255,.06); border-bottom:1px solid rgba(255,255,255,.06); display:flex; align-items:center; gap:6px; padding:0 12px; }
+  .mock-dot { width:8px; height:8px; border-radius:50%; }
+  .mock-dot:nth-child(1){background:#ff5f57;} .mock-dot:nth-child(2){background:#febc2e;} .mock-dot:nth-child(3){background:#28c840;}
+  .mock-body { flex:1; display:flex; flex-direction:column; gap:8px; padding:12px; }
+  .mock-line { height:8px; border-radius:4px; background:rgba(255,255,255,.08); }
+  .mock-line.w60{width:60%;} .mock-line.w80{width:80%;} .mock-line.w40{width:40%;} .mock-line.w90{width:90%;}
+  .mock-line.accent { background:rgba(200,255,0,.2); width:35%; }
+  .mock-row { display:flex; gap:8px; margin-top:6px; }
+  .mock-block { height:40px; border-radius:6px; background:rgba(255,255,255,.05); flex:1; }
+  .mock-block.accent { background:rgba(200,255,0,.1); border:1px solid rgba(200,255,0,.2); }
+  .card-overlay { position:absolute; inset:0; background:rgba(200,255,0,.05); opacity:0; transition:opacity .25s; }
+  .card-info { position:absolute; bottom:0; left:0; right:0; padding:20px 24px; background:linear-gradient(transparent,rgba(10,10,15,.95) 40%); }
+  .card-meta { display:flex; align-items:center; justify-content:space-between; margin-bottom:6px; }
+  .card-tag { font-size:10px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); background:rgba(200,255,0,.1); padding:3px 10px; border-radius:100px; }
+  .project-arrow { width:28px; height:28px; border:1px solid rgba(255,255,255,.2); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; transition:transform .2s; }
+  .card-title { font-family:'Syne',sans-serif; font-weight:700; font-size:18px; color:var(--white); margin-bottom:4px; }
+  .card-desc { font-size:13px; color:var(--muted); }
+
+  /* PROCESS */
+  .process-steps { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:20px; overflow:hidden; max-width:1200px; }
+  .process-step { background:var(--card-bg); padding:40px 32px; position:relative; transition:background .2s; }
+  .process-step:hover { background:#17171f; }
+  .step-num { font-family:'Syne',sans-serif; font-weight:800; font-size:48px; color:rgba(255,255,255,.05); line-height:1; margin-bottom:24px; }
+  .step-icon { font-size:28px; margin-bottom:16px; display:block; }
+  .step-title { font-family:'Syne',sans-serif; font-weight:700; font-size:20px; color:var(--white); margin-bottom:12px; }
+  .step-desc { font-size:14px; color:var(--muted); line-height:1.7; }
+  .step-accent { position:absolute; top:0; left:0; right:0; height:2px; background:var(--accent); transform:scaleX(0); transform-origin:left; transition:transform .3s; }
+  .process-step:hover .step-accent { transform:scaleX(1); }
+
+  /* CONTACT */
+  .contact-inner { max-width:1200px; border:1px solid var(--border); border-radius:24px; padding:80px; text-align:center; position:relative; overflow:hidden; background:var(--card-bg); }
+  .contact-inner::before { content:''; position:absolute; top:-120px; left:50%; transform:translateX(-50%); width:400px; height:400px; background:var(--accent); border-radius:50%; filter:blur(100px); opacity:.06; pointer-events:none; }
+  .contact-title { font-family:'Syne',sans-serif; font-weight:800; font-size:clamp(40px,6vw,72px); line-height:1.05; letter-spacing:-.02em; margin-bottom:20px; }
+  .contact-title span { color:var(--accent); }
+  .contact-sub { color:var(--muted); font-size:18px; font-weight:300; max-width:500px; margin:0 auto 48px; line-height:1.7; }
+  .contact-links { display:flex; justify-content:center; gap:16px; flex-wrap:wrap; }
+  .link-pill { display:inline-flex; align-items:center; gap:8px; padding:12px 24px; border:1px solid var(--border); border-radius:100px; font-size:14px; color:var(--muted); text-decoration:none; transition:border-color .2s,color .2s; }
+  .link-pill:hover { border-color:rgba(255,255,255,.3); color:var(--white); }
+
+  /* FOOTER */
+  footer { position:relative; z-index:1; padding:32px 48px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+  footer p { font-size:13px; color:var(--muted); }
+  footer a { color:var(--muted); text-decoration:none; }
+  footer a:hover { color:var(--accent); }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(24px);} to{opacity:1;transform:translateY(0);} }
+  .reveal { opacity:0; transform:translateY(30px); transition:opacity .7s ease,transform .7s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  /* CURSOR */
+  .cursor { width:12px; height:12px; background:var(--accent); border-radius:50%; position:fixed; pointer-events:none; z-index:9999; transition:transform .15s ease,width .2s,height .2s; transform:translate(-50%,-50%); mix-blend-mode:exclusion; }
+  .cursor-ring { width:36px; height:36px; border:1px solid rgba(200,255,0,.5); border-radius:50%; position:fixed; pointer-events:none; z-index:9998; transition:transform .35s ease,width .2s,height .2s,border-color .2s; transform:translate(-50%,-50%); }
+
+  /* ══════════════════════════════════
+     EDITOR PANEL
+  ══════════════════════════════════ */
+  #edit-btn {
+    position:fixed;
+    bottom: 32px; right: 170px;
+    z-index: 10000;
+    background: var(--accent);
+    color: var(--black);
+    border: none;
+    border-radius: 100px;
+    padding: 14px 24px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 8px 32px rgba(200,255,0,0.3);
+    transition: transform .2s, box-shadow .2s;
+    display: none;
+  }
+  #edit-btn.visible { display: flex; }
+  #edit-btn:hover { transform: scale(1.05); box-shadow: 0 12px 40px rgba(200,255,0,0.4); }
+
+  #editor-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 10001;
+    backdrop-filter: blur(4px);
+  }
+  #editor-overlay.open { display: block; }
+
+  #editor-panel {
+    position: fixed;
+    top: 0; right: 0; bottom: 0;
+    width: 480px;
+    background: #0e0e16;
+    border-left: 1px solid rgba(255,255,255,0.1);
+    z-index: 10002;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(.22,1,.36,1);
+    overflow: hidden;
+  }
+  #editor-panel.open { transform: translateX(0); }
+
+  .ep-header {
+    padding: 24px 28px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .ep-header h3 { font-family:'Syne',sans-serif; font-weight:700; font-size:18px; color:var(--white); }
+  .ep-header p { font-size:12px; color:var(--muted); margin-top:2px; }
+  .ep-close { background:transparent; border:1px solid rgba(255,255,255,0.1); color:var(--muted); width:32px; height:32px; border-radius:50%; cursor:pointer; font-size:18px; display:flex; align-items:center; justify-content:center; transition:border-color .2s,color .2s; flex-shrink:0; }
+  .ep-close:hover { border-color:rgba(255,255,255,.3); color:var(--white); }
+
+  /* Tabs */
+  .ep-tabs {
+    display: flex;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    flex-shrink: 0;
+    overflow-x: auto;
+  }
+  .ep-tab {
+    padding: 12px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: color .2s, border-color .2s;
+    background: transparent;
+    border-top: none; border-left: none; border-right: none;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .ep-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  .ep-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px 28px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.1) transparent;
+  }
+  .ep-body::-webkit-scrollbar { width: 4px; }
+  .ep-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+
+  .ep-section { display: none; }
+  .ep-section.active { display: block; }
+
+  /* Form elements */
+  .ep-group { margin-bottom: 20px; }
+  .ep-label { display: block; font-size: 12px; font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 8px; }
+  .ep-input, .ep-textarea, .ep-select {
+    width: 100%;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    padding: 10px 14px;
+    transition: border-color .2s;
+    outline: none;
+  }
+  .ep-input:focus, .ep-textarea:focus, .ep-select:focus { border-color: rgba(200,255,0,0.4); }
+  .ep-textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+  .ep-select option { background: #1a1a24; }
+  .ep-hint { font-size: 11px; color: var(--muted); margin-top: 5px; opacity: .7; }
+
+  .ep-divider { height: 1px; background: rgba(255,255,255,0.06); margin: 24px 0; }
+
+  /* Project cards in editor */
+  .project-item {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .project-item-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    cursor: pointer;
+  }
+  .project-item-title { font-family:'Syne',sans-serif; font-weight:600; font-size:14px; color:var(--white); }
+  .project-item-arrow { color:var(--muted); font-size:12px; transition:transform .2s; }
+  .project-item.collapsed .project-fields { display:none; }
+  .project-item.collapsed .project-item-arrow { transform:rotate(-90deg); }
+  .project-fields { display:flex; flex-direction:column; gap:10px; }
+  .project-fields .ep-input { margin: 0; }
+  .color-options { display:flex; gap:8px; flex-wrap:wrap; margin-top:4px; }
+  .color-opt { width:28px; height:28px; border-radius:6px; cursor:pointer; border:2px solid transparent; transition:border-color .15s,transform .15s; }
+  .color-opt:hover { transform:scale(1.1); }
+  .color-opt.selected { border-color: var(--white); }
+  .del-btn { background:rgba(255,77,109,0.1); border:1px solid rgba(255,77,109,0.2); color:#ff4d6d; border-radius:8px; padding:6px 12px; font-size:12px; cursor:pointer; transition:background .2s; font-family:'DM Sans',sans-serif; }
+  .del-btn:hover { background:rgba(255,77,109,0.2); }
+  .add-btn { width:100%; background:rgba(200,255,0,0.06); border:1px dashed rgba(200,255,0,0.3); color:var(--accent); border-radius:10px; padding:12px; font-size:14px; cursor:pointer; transition:background .2s; font-family:'DM Sans',sans-serif; }
+  .add-btn:hover { background:rgba(200,255,0,0.1); }
+
+  /* Social links in editor */
+  .social-item { display:flex; gap:8px; margin-bottom:8px; align-items:center; }
+  .social-item .ep-input { flex:1; }
+  .social-label-input { width:110px !important; flex:0 0 110px !important; }
+
+  /* Footer actions */
+  .ep-footer {
+    padding: 20px 28px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+  .ep-apply {
+    flex: 1;
+    background: var(--accent);
+    color: var(--black);
+    border: none;
+    border-radius: 10px;
+    padding: 12px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: opacity .2s;
+  }
+  .ep-apply:hover { opacity: .88; }
+  .ep-export {
+    flex: 1;
+    background: rgba(255,255,255,0.06);
+    color: var(--white);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px;
+    padding: 12px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background .2s;
+  }
+  .ep-export:hover { background: rgba(255,255,255,0.1); }
+
+  /* Toast */
+  #toast {
+    position: fixed;
+    bottom: 100px; right: 32px;
+    background: var(--accent);
+    color: var(--black);
+    padding: 10px 20px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 600;
+    z-index: 20000;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity .3s, transform .3s;
+    pointer-events: none;
+  }
+  #toast.show { opacity: 1; transform: translateY(0); }
+
+  /* ── AUTH BUTTON ── */
+  #auth-btn {
+    position: fixed;
+    bottom: 32px; right: 32px;
+    z-index: 10000;
+    background: rgba(10,10,15,0.6);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: var(--muted);
+    border-radius: 100px;
+    padding: 10px 18px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    transition: all 0.2s;
+    backdrop-filter: blur(8px);
+  }
+  #auth-btn:hover { border-color: rgba(255,255,255,0.3); color: var(--white); }
+  #auth-btn.logged-in {
+    background: var(--accent);
+    color: var(--black);
+    border-color: transparent;
+    box-shadow: 0 8px 32px rgba(200,255,0,0.3);
+    font-weight: 600;
+  }
+  #auth-btn.logged-in:hover { opacity:.9; transform:scale(1.03); }
+  .auth-dot { width:7px; height:7px; border-radius:50%; background:currentColor; flex-shrink:0; }
+  #login-nudge {
+    position: fixed;
+    bottom: 80px; right: 32px;
+    background: var(--card-bg);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: var(--muted);
+    z-index: 10000;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity .25s, transform .25s;
+    pointer-events: none;
+    max-width: 220px;
+    line-height: 1.5;
+  }
+  #login-nudge.show { opacity:1; transform:translateY(0); }
+  #login-nudge strong { color:var(--white); display:block; margin-bottom:2px; font-size:12px; }
+
+  /* RESPONSIVE */
+  @media(max-width:900px) {
+    nav{padding:16px 24px;} .nav-links{display:none;}
+    section{padding:70px 24px;} #hero{padding:100px 24px 70px;}
+    .about-grid{grid-template-columns:1fr;gap:40px;}
+    .process-steps{grid-template-columns:1fr 1fr;}
+    .card-lg{grid-column:span 12;grid-row:span 4;}
+    .card-md{grid-column:span 12;grid-row:span 4;}
+    .card-sm{grid-column:span 6;}
+    .hero-stats{display:none;} .scroll-hint{display:none;}
+    .contact-inner{padding:48px 24px;} footer{padding:24px;}
+    #editor-panel{width:100%;}
+  }
+  @media(max-width:560px) {
+    .projects-grid{gap:12px;} .card-sm{grid-column:span 12;}
+    .process-steps{grid-template-columns:1fr;}
+    .skills-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- LOGIN MODAL -->
+<div id="login-modal" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);align-items:center;justify-content:center;">
+  <div style="background:#0e0e16;border:1px solid rgba(255,255,255,0.12);border-radius:20px;padding:40px 36px;width:100%;max-width:360px;margin:16px;position:relative;">
+    <button onclick="document.getElementById('login-modal').style.display='none';window.location.hash='';" style="position:absolute;top:16px;right:16px;background:transparent;border:1px solid rgba(255,255,255,0.1);color:#9a9a8e;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;">✕</button>
+    <div style="text-align:center;margin-bottom:28px;">
+      <div style="width:48px;height:48px;border-radius:50%;background:rgba(200,255,0,0.1);border:1px solid rgba(200,255,0,0.3);display:flex;align-items:center;justify-content:center;font-size:20px;margin:0 auto 14px;">🔑</div>
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:20px;color:#f5f4f0;">Admin Login</div>
+      <div style="font-size:13px;color:#9a9a8e;margin-top:4px;">Masukkan password untuk akses editor</div>
+    </div>
+    <input id="admin-pw-input" type="password" placeholder="Password"
+      onkeydown="if(event.key==='Enter')submitAdminLogin()"
+      style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:10px;color:#f5f4f0;font-family:'DM Sans',sans-serif;font-size:15px;padding:12px 16px;outline:none;margin-bottom:10px;box-sizing:border-box;">
+    <div id="login-error" style="display:none;background:rgba(255,77,109,0.1);border:1px solid rgba(255,77,109,0.2);border-radius:8px;padding:8px 12px;font-size:13px;color:#ff4d6d;margin-bottom:10px;text-align:center;">Password salah. Coba lagi.</div>
+    <button onclick="submitAdminLogin()" style="width:100%;background:#c8ff00;color:#0a0a0f;border:none;border-radius:10px;padding:13px;font-family:'Syne',sans-serif;font-weight:700;font-size:15px;cursor:pointer;">Masuk →</button>
+    <div style="text-align:center;margin-top:16px;font-size:11px;color:#9a9a8e;">Akses URL <span style="color:#c8ff00;font-family:monospace;">yoursite.com/#admin</span> untuk buka halaman ini</div>
+  </div>
+</div>
+
+<!-- AUTH BUTTON: visible to everyone, changes based on login state -->
+<button id="auth-btn" onclick="handleAuthClick()">
+  <span class="auth-dot"></span>
+  <span id="auth-btn-label">Admin</span>
+</button>
+
+<!-- EDIT BUTTON: hidden by default, only shown when logged in -->
+<button id="edit-btn" onclick="openEditor()">✏️ Edit Portfolio</button>
+
+<!-- LOGIN NUDGE -->
+<div id="login-nudge">
+  <strong>Mode Admin</strong>
+  Login dengan akun Netlify kamu untuk mengakses panel editor.
+</div>
+
+<div id="toast"></div>
+
+<!-- EDITOR OVERLAY -->
+<div id="editor-overlay" onclick="closeEditor()"></div>
+
+<!-- EDITOR PANEL -->
+<div id="editor-panel">
+  <div class="ep-header">
+    <div>
+      <h3>Edit Portfolio</h3>
+      <p>Perubahan langsung tampil di halaman</p>
+    </div>
+    <button class="ep-close" onclick="closeEditor()">✕</button>
+  </div>
+
+  <div class="ep-tabs">
+    <button class="ep-tab active" onclick="switchTab('identity')">🪪 Identitas</button>
+    <button class="ep-tab" onclick="switchTab('projects')">💼 Proyek</button>
+    <button class="ep-tab" onclick="switchTab('socials')">🔗 Sosial</button>
+    <button class="ep-tab" onclick="switchTab('content')">📝 Konten</button>
+  </div>
+
+  <div class="ep-body">
+
+    <!-- ── TAB: IDENTITAS ── -->
+    <div class="ep-section active" id="tab-identity">
+      <div class="ep-group">
+        <label class="ep-label">Nama Kamu</label>
+        <input class="ep-input" id="f-name" type="text" placeholder="cth: Rizky Pratama">
+        <p class="ep-hint">Tampil di navbar, footer, dan hero section</p>
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">Tagline / Subtitle Hero</label>
+        <input class="ep-input" id="f-tagline" type="text" placeholder="cth: UI/UX Designer crafting...">
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">Status Ketersediaan</label>
+        <input class="ep-input" id="f-availability" type="text" placeholder="cth: Available for Projects">
+        <p class="ep-hint">Badge hijau di hero section</p>
+      </div>
+      <div class="ep-divider"></div>
+      <div class="ep-group">
+        <label class="ep-label">Stats Hero <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted)">(angka + label — bisa tambah/hapus)</span></label>
+        <div id="stats-list"></div>
+        <button class="add-btn" style="margin-top:8px;font-size:13px;padding:9px" onclick="addStat()">+ Tambah Stat</button>
+      </div>
+      <div class="ep-divider"></div>
+      <div class="ep-group">
+        <label class="ep-label">Lokasi</label>
+        <input class="ep-input" id="f-location" type="text" placeholder="cth: Jakarta, Indonesia">
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">Email Utama</label>
+        <input class="ep-input" id="f-email" type="email" placeholder="cth: hello@namakamu.com">
+        <p class="ep-hint">Tampil di tombol CTA bagian Contact</p>
+      </div>
+    </div>
+
+    <!-- ── TAB: PROYEK ── -->
+    <div class="ep-section" id="tab-projects">
+      <p style="font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.6;">Tambah, edit, atau hapus proyek. Klik judul proyek untuk expand/collapse.</p>
+      <div id="projects-list"></div>
+      <button class="add-btn" onclick="addProject()">+ Tambah Proyek Baru</button>
+    </div>
+
+    <!-- ── TAB: SOSIAL MEDIA ── -->
+    <div class="ep-section" id="tab-socials">
+      <p style="font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.6;">Tambah link sosial media dan CV. Akan tampil di bagian Contact.</p>
+      <div id="socials-list"></div>
+      <button class="add-btn" onclick="addSocial()">+ Tambah Link Baru</button>
+    </div>
+
+    <!-- ── TAB: KONTEN ── -->
+    <div class="ep-section" id="tab-content">
+      <div class="ep-group">
+        <label class="ep-label">Bio — Paragraf 1</label>
+        <textarea class="ep-textarea" id="f-bio1" style="min-height:100px"></textarea>
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">Bio — Paragraf 2</label>
+        <textarea class="ep-textarea" id="f-bio2" style="min-height:100px"></textarea>
+      </div>
+      <div class="ep-divider"></div>
+      <div class="ep-group">
+        <label class="ep-label">Teks CTA Contact</label>
+        <input class="ep-input" id="f-contact-sub" type="text" placeholder="cth: Have a project in mind?...">
+      </div>
+    </div>
+
+  </div><!-- /ep-body -->
+
+  <div class="ep-footer">
+    <button class="ep-apply" onclick="applyChanges()">✓ Terapkan Perubahan</button>
+    <button class="ep-export" onclick="exportHTML()">⬇ Export HTML</button>
+  </div>
+</div>
+
+<!-- ══════════════ PORTFOLIO CONTENT ══════════════ -->
+
+<nav>
+  <a href="#" class="nav-logo" id="nav-logo-el">Your<span>.</span>Name</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Let's Talk →</a>
+</nav>
+
+<section id="hero">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="hero-badge" id="hero-badge-el">Available for Projects</div>
+  <h1 class="hero-title">
+    Designing<br>
+    <span class="outline">Experiences</span><br>
+    that <span class="accent-word">Matter</span>
+  </h1>
+  <p class="hero-sub" id="hero-sub-el">UI/UX Designer crafting intuitive digital products — from wireframe to polished interface with intention.</p>
+  <div class="hero-actions">
+    <a href="#work" class="btn-primary">See My Work ↓</a>
+    <a href="#contact" class="btn-ghost">Get in Touch</a>
+  </div>
+  <div class="scroll-hint"><span class="scroll-line"></span>Scroll to explore</div>
+  <div class="hero-stats" id="hero-stats-el">
+    <div class="stat-item"><div class="stat-num">3+</div><div class="stat-label">Years of Experience</div></div>
+    <div class="stat-item"><div class="stat-num">20+</div><div class="stat-label">Projects Delivered</div></div>
+    <div class="stat-item"><div class="stat-num">10+</div><div class="stat-label">Happy Clients</div></div>
+  </div>
+</section>
+
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>UI Design</span><span class="dot">·</span><span>UX Research</span><span class="dot">·</span><span>Figma</span><span class="dot">·</span><span>Design Systems</span><span class="dot">·</span><span>Prototyping</span><span class="dot">·</span><span>Usability Testing</span><span class="dot">·</span><span>Mobile Apps</span><span class="dot">·</span><span>Web Design</span><span class="dot">·</span><span>Interaction Design</span><span class="dot">·</span><span>Visual Design</span><span class="dot">·</span>
+    <span>UI Design</span><span class="dot">·</span><span>UX Research</span><span class="dot">·</span><span>Figma</span><span class="dot">·</span><span>Design Systems</span><span class="dot">·</span><span>Prototyping</span><span class="dot">·</span><span>Usability Testing</span><span class="dot">·</span><span>Mobile Apps</span><span class="dot">·</span><span>Web Design</span><span class="dot">·</span><span>Interaction Design</span><span class="dot">·</span><span>Visual Design</span><span class="dot">·</span>
+  </div>
+</div>
+
+<section id="about">
+  <div class="section-tag">About Me</div>
+  <div class="about-grid">
+    <div class="about-text">
+      <h2 class="section-title">Design is how it <em>works</em>, not just how it looks</h2>
+      <p id="bio-p1">Halo! Saya seorang <strong>UI/UX Designer</strong> yang berfokus pada menciptakan pengalaman digital yang bermakna dan berdampak. Saya percaya desain yang baik bukan hanya soal estetika — tetapi tentang memecahkan masalah nyata.</p>
+      <p id="bio-p2">Dengan pengalaman di berbagai industri, saya menggabungkan <strong>riset mendalam</strong>, <strong>logika sistematis</strong>, dan <strong>sentuhan visual</strong> untuk menghadirkan produk yang benar-benar digunakan — dan dicintai — pengguna.</p>
+      <div style="margin-top:32px"><a href="#work" class="btn-primary">View Projects →</a></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card reveal"><span class="skill-icon">🎨</span><div class="skill-name">Visual Design</div><div class="skill-desc">Figma, typography, color systems, branding</div></div>
+      <div class="skill-card reveal"><span class="skill-icon">🔬</span><div class="skill-name">UX Research</div><div class="skill-desc">User interviews, usability testing, affinity mapping</div></div>
+      <div class="skill-card reveal"><span class="skill-icon">⚡</span><div class="skill-name">Prototyping</div><div class="skill-desc">Interactive flows, micro-interactions, handoff</div></div>
+      <div class="skill-card reveal"><span class="skill-icon">📐</span><div class="skill-name">Design Systems</div><div class="skill-desc">Component libraries, tokens, documentation</div></div>
+      <div class="skill-card reveal"><span class="skill-icon">📱</span><div class="skill-name">Mobile Design</div><div class="skill-desc">iOS, Android, responsive patterns</div></div>
+      <div class="skill-card reveal"><span class="skill-icon">🌐</span><div class="skill-name">Web Design</div><div class="skill-desc">Landing pages, dashboards, SaaS products</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="work-header">
+    <div>
+      <div class="section-tag">Selected Work</div>
+      <h2 class="section-title">Projects that<br>define my craft</h2>
+    </div>
+    <p style="color:var(--muted);max-width:280px;font-size:15px;font-weight:300;line-height:1.7;">Each project is a deep dive into the problem space — not just beautiful screens, but thoughtful solutions.</p>
+  </div>
+  <div class="projects-grid" id="projects-grid"></div>
+</section>
+
+<section id="process">
+  <div class="section-tag">How I Work</div>
+  <h2 class="section-title reveal">My design process</h2>
+  <div class="process-steps reveal">
+    <div class="process-step"><div class="step-accent"></div><div class="step-num">01</div><span class="step-icon">🔍</span><div class="step-title">Discover</div><div class="step-desc">User interviews, competitor analysis, and stakeholder alignment. Understanding the problem before touching the canvas.</div></div>
+    <div class="process-step"><div class="step-accent"></div><div class="step-num">02</div><span class="step-icon">💡</span><div class="step-title">Define</div><div class="step-desc">Synthesizing insights into personas, user journeys, and clear problem statements that guide all decisions.</div></div>
+    <div class="process-step"><div class="step-accent"></div><div class="step-num">03</div><span class="step-icon">✏️</span><div class="step-title">Design</div><div class="step-desc">Wireframes, high-fidelity mockups, and interactive prototypes built with precision and purpose.</div></div>
+    <div class="process-step"><div class="step-accent"></div><div class="step-num">04</div><span class="step-icon">🚀</span><div class="step-title">Deliver</div><div class="step-desc">Developer handoff, documentation, and post-launch iteration based on real user feedback.</div></div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-inner reveal">
+    <div class="section-tag" style="justify-content:center">Get in Touch</div>
+    <h2 class="contact-title">Let's build<br>something <span>great</span></h2>
+    <p class="contact-sub" id="contact-sub-el">Have a project in mind? I'm open to freelance opportunities and full-time roles. Let's connect.</p>
+    <div class="contact-links" id="contact-links-el"></div>
+  </div>
+</section>
+
+<footer>
+  <p id="footer-name-el">© 2025 Your Name — UI/UX Designer</p>
+  <p id="footer-loc-el">Crafted with intention · Jakarta, Indonesia</p>
+  <p><a href="#">Back to top ↑</a></p>
+</footer>
+
+<!-- ══════════════ SCRIPT ══════════════ -->
+<script>
+// ── DATA STATE ──
+const STATE = {
+  name: 'Your Name',
+  tagline: 'UI/UX Designer crafting intuitive digital products — from wireframe to polished interface with intention.',
+  availability: 'Available for Projects',
+  location: 'Jakarta, Indonesia',
+  email: 'hello@namakamu.com',
+  bio1: 'Halo! Saya seorang UI/UX Designer yang berfokus pada menciptakan pengalaman digital yang bermakna dan berdampak. Saya percaya desain yang baik bukan hanya soal estetika — tetapi tentang memecahkan masalah nyata.',
+  bio2: 'Dengan pengalaman di berbagai industri, saya menggabungkan riset mendalam, logika sistematis, dan sentuhan visual untuk menghadirkan produk yang benar-benar digunakan — dan dicintai — pengguna.',
+  contactSub: "Have a project in mind? I'm open to freelance opportunities and full-time roles. Let's connect.",
+  // Stats: fully dynamic — add, remove, edit value & label freely
+  stats: [
+    { value: '3+', label: 'Years of Experience' },
+    { value: '20+', label: 'Projects Delivered' },
+    { value: '10+', label: 'Happy Clients' },
+  ],
+  projects: [
+    { title:'FinTrack — Personal Finance App', desc:'End-to-end design untuk budgeting app · Figma · iOS', tag:'Mobile App', link:'https://drive.google.com/', color:1, image:'' },
+    { title:'Nexus — Analytics Platform', desc:'Design system + dashboard · 80+ components', tag:'SaaS Dashboard', link:'https://drive.google.com/', color:2, image:'' },
+    { title:'ShopFlow Redesign', desc:'Conversion-focused UX', tag:'E-Commerce', link:'https://drive.google.com/', color:3, image:'' },
+    { title:'GreenRoute Identity', desc:'Brand + UI system', tag:'Branding', link:'https://drive.google.com/', color:4, image:'' },
+    { title:'Pulsar EdTech Platform', desc:'UX research + design', tag:'Web App', link:'https://drive.google.com/', color:5, image:'' },
+  ],
+  socials: [
+    { label:'LinkedIn', url:'https://linkedin.com/in/yourprofile' },
+    { label:'Resume / CV', url:'https://drive.google.com/your-resume' },
+    { label:'Behance', url:'https://behance.net/yourprofile' },
+    { label:'Dribbble', url:'https://dribbble.com/yourprofile' },
+  ]
+};
+
+const COLORS = [
+  'linear-gradient(135deg,#1a1a2e,#16213e,#0f3460)',
+  'linear-gradient(135deg,#1e0a2e,#2d1b69,#11998e)',
+  'linear-gradient(135deg,#0f0f0f,#1a0a00,#3d1500)',
+  'linear-gradient(135deg,#001a0d,#004d26,#00a550)',
+  'linear-gradient(135deg,#1a0a20,#3d0e61,#7b2ff7)',
+  'linear-gradient(135deg,#1a1000,#3d2e00,#c8a000)',
+  'linear-gradient(135deg,#001a20,#00404d,#00b4cc)',
+  'linear-gradient(135deg,#1a0010,#4d0030,#cc006b)',
+];
+const COLOR_NAMES = ['Biru Navy','Ungu Teal','Oranye Gelap','Hijau','Ungu Neon','Emas','Cyan','Pink'];
+
+// ── RENDER PORTFOLIO ──
+function renderPortfolio() {
+  // Identity
+  const n = STATE.name;
+  document.getElementById('nav-logo-el').innerHTML = n.split(' ').map((w,i) => i===0 ? w : `<span>.</span>${w}`).join('') || `Your<span>.</span>Name`;
+  document.getElementById('hero-badge-el').textContent = STATE.availability;
+  document.getElementById('hero-sub-el').textContent = STATE.tagline;
+  // Render dynamic stats
+  const statsEl = document.getElementById('hero-stats-el');
+  if (statsEl) {
+    statsEl.innerHTML = (STATE.stats||[]).map(s => `
+      <div class="stat-item">
+        <div class="stat-num">${s.value}</div>
+        <div class="stat-label">${s.label}</div>
+      </div>`).join('');
+  }
+  document.getElementById('footer-name-el').textContent = `© ${new Date().getFullYear()} ${STATE.name} — UI/UX Designer`;
+  document.getElementById('footer-loc-el').textContent = `Crafted with intention · ${STATE.location}`;
+  document.getElementById('contact-sub-el').textContent = STATE.contactSub;
+
+  // Bio
+  document.getElementById('bio-p1').innerHTML = STATE.bio1;
+  document.getElementById('bio-p2').innerHTML = STATE.bio2;
+
+  // Projects grid
+  const grid = document.getElementById('projects-grid');
+  if (STATE.projects.length === 0) { grid.innerHTML = '<p style="color:var(--muted);font-size:14px;grid-column:span 12;padding:40px 0;text-align:center">Belum ada proyek. Tambah proyek di panel editor.</p>'; return; }
+
+  // Smart size assignment based on position
+  const sizeClasses = ['card-lg','card-md','card-sm','card-sm','card-sm'];
+  grid.innerHTML = STATE.projects.map((p, i) => {
+    const ci = ((p.color||1)-1) % COLORS.length;
+    const sz = i === 0 ? 'card-lg' : i === 1 ? 'card-md' : 'card-sm';
+    const visual = p.image
+      ? `<div class="card-visual" style="position:absolute;inset:0;overflow:hidden;">
+           <img src="${p.image}" alt="${p.title}" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;">
+         </div>`
+      : `<div class="card-visual" style="background:${COLORS[ci]};position:absolute;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden">
+           <div class="card-mock">
+             <div class="mock-bar"><div class="mock-dot"></div><div class="mock-dot"></div><div class="mock-dot"></div></div>
+             <div class="mock-body">
+               <div class="mock-line w60"></div>
+               <div class="mock-line w40 accent"></div>
+               <div class="mock-row"><div class="mock-block"></div><div class="mock-block accent"></div></div>
+               <div class="mock-line w80" style="margin-top:6px"></div>
+             </div>
+           </div>
+         </div>`;
+    return `
+    <a href="${p.link||'#'}" target="_blank" class="project-card ${sz} reveal">
+      ${visual}
+      <div class="card-overlay"></div>
+      <div class="card-info">
+        <div class="card-meta">
+          <span class="card-tag">${p.tag||'Project'}</span>
+          <span class="project-arrow">↗</span>
+        </div>
+        <div class="card-title">${p.title}</div>
+        <div class="card-desc">${p.desc||''}</div>
+      </div>
+    </a>`;
+  }).join('');
+
+  // Social links in contact
+  const cl = document.getElementById('contact-links-el');
+  const emailBtn = `<a href="mailto:${STATE.email}" class="btn-primary">${STATE.email} ↗</a>`;
+  const socialBtns = STATE.socials.map(s => `<a href="${s.url}" target="_blank" class="link-pill">${s.label} ↗</a>`).join('');
+  cl.innerHTML = emailBtn + socialBtns;
+
+  // Re-observe reveals
+  observeReveal();
+}
+
+// ── EDITOR HELPERS ──
+// ── STATS EDITOR ──
+function renderStatsList() {
+  const list = document.getElementById('stats-list');
+  if (!list) return;
+  list.innerHTML = (STATE.stats||[]).map((s,i) => `
+    <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;">
+      <input class="ep-input" style="width:72px;flex:0 0 72px;text-align:center;font-weight:600;" placeholder="3+" value="${s.value||''}"
+        onchange="updateStat(${i},'value',this.value)">
+      <input class="ep-input" style="flex:1;" placeholder="Label, cth: Years of Experience" value="${s.label||''}"
+        onchange="updateStat(${i},'label',this.value)">
+      <button class="del-btn" style="padding:8px 10px;flex-shrink:0;" onclick="deleteStat(${i})">✕</button>
+    </div>`).join('');
+}
+function addStat() {
+  if (!STATE.stats) STATE.stats = [];
+  STATE.stats.push({ value: '0+', label: 'Label Baru' });
+  renderStatsList();
+  renderPortfolio();
+}
+function updateStat(i, key, val) {
+  STATE.stats[i][key] = val;
+  renderPortfolio();
+}
+function deleteStat(i) {
+  STATE.stats.splice(i, 1);
+  renderStatsList();
+  renderPortfolio();
+}
+
+function renderProjectsList() {
+  const list = document.getElementById('projects-list');
+  list.innerHTML = STATE.projects.map((p,i) => `
+    <div class="project-item" id="proj-item-${i}">
+      <div class="project-item-header" onclick="toggleProject(${i})">
+        <span class="project-item-title">${p.title || 'Proyek Baru'}</span>
+        <span class="project-item-arrow">▾</span>
+      </div>
+      <div class="project-fields">
+        <div class="ep-group" style="margin:0">
+          <label class="ep-label">Judul Proyek</label>
+          <input class="ep-input" placeholder="cth: FinTrack App" value="${p.title||''}" onchange="updateProject(${i},'title',this.value)">
+        </div>
+        <div class="ep-group" style="margin:0">
+          <label class="ep-label">Tag / Kategori</label>
+          <input class="ep-input" placeholder="cth: Mobile App" value="${p.tag||''}" onchange="updateProject(${i},'tag',this.value)">
+        </div>
+        <div class="ep-group" style="margin:0">
+          <label class="ep-label">Deskripsi Singkat</label>
+          <input class="ep-input" placeholder="cth: End-to-end design..." value="${p.desc||''}" onchange="updateProject(${i},'desc',this.value)">
+        </div>
+        <div class="ep-group" style="margin:0">
+          <label class="ep-label">Link PDF / Google Drive</label>
+          <input class="ep-input" type="url" placeholder="https://drive.google.com/..." value="${p.link||''}" onchange="updateProject(${i},'link',this.value)">
+        </div>
+        <div class="ep-group" style="margin:0">
+          <label class="ep-label">Thumbnail / Gambar Proyek</label>
+          <div style="display:flex;gap:8px;align-items:flex-start;flex-wrap:wrap;">
+            ${p.image ? `<img src="${p.image}" style="width:80px;height:54px;object-fit:cover;border-radius:8px;border:1px solid rgba(255,255,255,0.1);flex-shrink:0;">` : ''}
+            <div style="flex:1;min-width:140px;">
+              <label style="display:block;background:rgba(200,255,0,0.06);border:1px dashed rgba(200,255,0,0.3);border-radius:8px;padding:10px;text-align:center;cursor:pointer;font-size:12px;color:var(--accent);">
+                ${p.image ? '🔄 Ganti Gambar' : '📁 Upload Gambar'}
+                <input type="file" accept="image/*" style="display:none;" onchange="uploadProjectImage(${i}, this)">
+              </label>
+              ${p.image ? `<button onclick="updateProject(${i},'image','');renderProjectsList();renderPortfolio();" style="margin-top:6px;width:100%;background:rgba(255,77,109,0.08);border:1px solid rgba(255,77,109,0.2);color:#ff4d6d;border-radius:6px;padding:5px;font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif;">✕ Hapus Gambar</button>` : ''}
+              <p style="font-size:11px;color:var(--muted);margin-top:6px;line-height:1.5;">JPG/PNG, maks 2MB.<br>Disimpan sebagai base64.</p>
+            </div>
+          </div>
+        </div>
+        <div class="ep-group" style="margin:0">
+          <label class="ep-label">Warna Kartu <span style="font-weight:400;font-size:10px;">(dipakai jika tidak ada gambar)</span></label>
+          <div class="color-options">
+            ${COLORS.map((c,ci) => `
+              <div class="color-opt ${p.color-1===ci?'selected':''}" title="${COLOR_NAMES[ci]}"
+                style="background:${c.replace('linear-gradient(135deg,','').split(',')[1]||'#333'}"
+                onclick="updateProject(${i},'color',${ci+1}); renderProjectsList()"></div>
+            `).join('')}
+          </div>
+        </div>
+        <button class="del-btn" onclick="deleteProject(${i})">🗑 Hapus Proyek</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderSocialsList() {
+  const list = document.getElementById('socials-list');
+  list.innerHTML = STATE.socials.map((s,i) => `
+    <div class="social-item">
+      <input class="ep-input social-label-input" placeholder="Label (cth: LinkedIn)" value="${s.label||''}" onchange="updateSocial(${i},'label',this.value)">
+      <input class="ep-input" type="url" placeholder="https://..." value="${s.url||''}" onchange="updateSocial(${i},'url',this.value)">
+      <button class="del-btn" style="padding:8px 10px;flex-shrink:0" onclick="deleteSocial(${i})">✕</button>
+    </div>
+  `).join('');
+}
+
+function populateFields() {
+  document.getElementById('f-name').value = STATE.name;
+  document.getElementById('f-tagline').value = STATE.tagline;
+  document.getElementById('f-availability').value = STATE.availability;
+  document.getElementById('f-location').value = STATE.location;
+  document.getElementById('f-email').value = STATE.email;
+  document.getElementById('f-bio1').value = STATE.bio1;
+  document.getElementById('f-bio2').value = STATE.bio2;
+  document.getElementById('f-contact-sub').value = STATE.contactSub;
+  renderStatsList();
+  renderProjectsList();
+  renderSocialsList();
+}
+
+function collectFields() {
+  STATE.name = document.getElementById('f-name').value || STATE.name;
+  STATE.tagline = document.getElementById('f-tagline').value || STATE.tagline;
+  STATE.availability = document.getElementById('f-availability').value || STATE.availability;
+  STATE.location = document.getElementById('f-location').value || STATE.location;
+  STATE.email = document.getElementById('f-email').value || STATE.email;
+  STATE.bio1 = document.getElementById('f-bio1').value || STATE.bio1;
+  STATE.bio2 = document.getElementById('f-bio2').value || STATE.bio2;
+  STATE.contactSub = document.getElementById('f-contact-sub').value || STATE.contactSub;
+  // Stats collected live via updateStat()
+}
+
+// ── ACTIONS ──
+function openEditor() {
+  populateFields();
+  document.getElementById('editor-overlay').classList.add('open');
+  document.getElementById('editor-panel').classList.add('open');
+}
+function closeEditor() {
+  document.getElementById('editor-overlay').classList.remove('open');
+  document.getElementById('editor-panel').classList.remove('open');
+}
+function switchTab(tab) {
+  document.querySelectorAll('.ep-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.ep-section').forEach(s => s.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('tab-' + tab).classList.add('active');
+  if(tab==='identity') renderStatsList();
+  if(tab==='projects') renderProjectsList();
+  if(tab==='socials') renderSocialsList();
+}
+function applyChanges() {
+  collectFields();
+  renderPortfolio();
+  saveToBlobs(); // persist to Netlify Blobs
+}
+function toggleProject(i) {
+  document.getElementById('proj-item-' + i).classList.toggle('collapsed');
+}
+function updateProject(i, key, val) {
+  STATE.projects[i][key] = key === 'color' ? Number(val) : val;
+}
+function uploadProjectImage(i, input) {
+  const file = input.files[0];
+  if (!file) return;
+  if (file.size > 2 * 1024 * 1024) {
+    showToast('⚠ Gambar terlalu besar. Maks 2MB.');
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = e => {
+    STATE.projects[i].image = e.target.result;
+    renderProjectsList();
+    renderPortfolio();
+    showToast('✓ Gambar berhasil diupload!');
+  };
+  reader.readAsDataURL(file);
+}
+function deleteProject(i) {
+  STATE.projects.splice(i, 1);
+  renderProjectsList();
+  renderPortfolio();
+}
+function addProject() {
+  STATE.projects.push({ title:'Proyek Baru', desc:'Deskripsi proyek', tag:'Project', link:'https://drive.google.com/', color: (STATE.projects.length % 8) + 1 });
+  renderProjectsList();
+  renderPortfolio();
+  // scroll to bottom of list
+  setTimeout(() => { document.getElementById('projects-list').lastElementChild?.scrollIntoView({behavior:'smooth'}); }, 100);
+}
+function updateSocial(i, key, val) { STATE.socials[i][key] = val; }
+function deleteSocial(i) { STATE.socials.splice(i, 1); renderSocialsList(); renderPortfolio(); }
+function addSocial() {
+  STATE.socials.push({ label:'Platform', url:'https://' });
+  renderSocialsList();
+}
+
+// ── EXPORT HTML ──
+function exportHTML() {
+  collectFields();
+  renderPortfolio();
+  const clone = document.documentElement.cloneNode(true);
+  clone.querySelector('#auth-btn')?.remove();
+  clone.querySelector('#edit-btn')?.remove();
+  clone.querySelector('#login-nudge')?.remove();
+  clone.querySelector('#editor-overlay')?.remove();
+  clone.querySelector('#editor-panel')?.remove();
+  clone.querySelector('#toast')?.remove();
+  const html = '<!DOCTYPE html>\n' + clone.outerHTML;
+  const blob = new Blob([html], { type: 'text/html' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'portfolio-final.html';
+  a.click();
+  showToast('⬇ File berhasil diexport!');
+}
+
+// ── TOAST ──
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ── CURSOR ──
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
+function animateCursor() {
+  rx += (mx-rx)*.12; ry += (my-ry)*.12;
+  cursor.style.left=mx+'px'; cursor.style.top=my+'px';
+  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+  requestAnimationFrame(animateCursor);
+}
+animateCursor();
+document.addEventListener('mouseover', e => {
+  if(e.target.closest('a,button')) {
+    cursor.style.transform='translate(-50%,-50%) scale(1.8)';
+    ring.style.width='52px'; ring.style.height='52px';
+    ring.style.borderColor='rgba(200,255,0,0.8)';
+  } else {
+    cursor.style.transform='translate(-50%,-50%) scale(1)';
+    ring.style.width='36px'; ring.style.height='36px';
+    ring.style.borderColor='rgba(200,255,0,0.5)';
+  }
+});
+
+// ── SCROLL REVEAL ──
+function observeReveal() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e,i) => {
+      if(e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), 80*(Number(e.target.dataset.delay)||0));
+        obs.unobserve(e.target);
+      }
+    });
+  }, {threshold:.1});
+  document.querySelectorAll('.reveal').forEach((el,i) => { el.dataset.delay=i%4; obs.observe(el); });
+}
+
+// ══════════════════════════════════════
+// ── CUSTOM PASSWORD AUTH ──
+// Akses admin: buka URL#admin
+// Password default: admin2025
+// Ganti ADMIN_HASH dengan hash SHA-256 password barumu
+// ══════════════════════════════════════
+const ADMIN_HASH = '0e89f223e226ae63268cf39152ab75722e811b89d29efb22a852f1667bd22ae0';
+let isLoggedIn = false;
+
+async function sha256(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+function setLoggedIn() {
+  isLoggedIn = true;
+  sessionStorage.setItem('admin_ok', '1');
+  document.getElementById('auth-btn').classList.add('logged-in');
+  document.getElementById('auth-btn-label').textContent = 'Admin · Logout';
+  document.getElementById('edit-btn').classList.add('visible');
+  document.getElementById('login-modal').style.display = 'none';
+  showToast('✓ Login berhasil! Panel editor aktif.');
+}
+
+function setLoggedOut() {
+  isLoggedIn = false;
+  sessionStorage.removeItem('admin_ok');
+  document.getElementById('auth-btn').classList.remove('logged-in');
+  document.getElementById('auth-btn-label').textContent = 'Admin';
+  document.getElementById('edit-btn').classList.remove('visible');
+  closeEditor();
+  window.location.hash = '';
+}
+
+function handleAuthClick() {
+  if (isLoggedIn) {
+    if (confirm('Logout dari mode admin?')) setLoggedOut();
+  } else {
+    showLoginModal();
+  }
+}
+
+function showLoginModal() {
+  document.getElementById('login-modal').style.display = 'flex';
+  setTimeout(() => document.getElementById('admin-pw-input').focus(), 100);
+}
+
+async function submitAdminLogin() {
+  const pw = document.getElementById('admin-pw-input').value;
+  const err = document.getElementById('login-error');
+  if (!pw) return;
+  const hash = await sha256(pw);
+  if (hash === ADMIN_HASH) {
+    sessionStorage.setItem('admin_token', await sha256('cf-save:' + pw));
+    setLoggedIn();
+  } else {
+    err.style.display = 'block';
+    document.getElementById('admin-pw-input').value = '';
+    setTimeout(() => { err.style.display = 'none'; }, 3000);
+  }
+}
+
+// Check hash on load + session restore
+window.addEventListener('load', () => {
+  if (sessionStorage.getItem('admin_ok') === '1') {
+    isLoggedIn = true;
+    document.getElementById('auth-btn').classList.add('logged-in');
+    document.getElementById('auth-btn-label').textContent = 'Admin · Logout';
+    document.getElementById('edit-btn').classList.add('visible');
+  }
+  if (window.location.hash === '#admin') {
+    if (!isLoggedIn) showLoginModal();
+  }
+});
+
+window.addEventListener('hashchange', () => {
+  if (window.location.hash === '#admin' && !isLoggedIn) showLoginModal();
+});
+
+// ══════════════════════════════════════
+// ── NETLIFY BLOBS: LOAD & SAVE ──
+// ══════════════════════════════════════
+// Absolute URL so the GitHub Pages copy reaches the same storage as the Cloudflare copy
+const API = 'https://thesarpandji.pages.dev/api/portfolio-data';
+
+// Load state from Blobs on page load
+async function loadFromBlobs() {
+  // Always render with defaults first so page is never blank
+  renderPortfolio();
+
+  try {
+    const res = await fetch(API, { signal: AbortSignal.timeout(60000) });
+    if (!res.ok) return;
+    const data = await res.json();
+    if (data && !data.notFound && !data.error) {
+      Object.assign(STATE, data);
+      renderPortfolio();
+    }
+  } catch (e) {
+    // Try localStorage fallback (local dev)
+    try {
+      const local = localStorage.getItem('portfolio_state');
+      if (local) {
+        Object.assign(STATE, JSON.parse(local));
+        renderPortfolio();
+      }
+    } catch(le) {}
+    console.info('Blobs not available, using default/local STATE.');
+  }
+}
+
+// Save state to Blobs (admin only)
+async function saveToBlobs() {
+  if (!isLoggedIn) return;
+
+  const payload = JSON.stringify(STATE);
+  const sizeKB = Math.round(payload.length / 1024);
+  if (sizeKB > 4096) {
+    showToast('⚠ Data terlalu besar (' + sizeKB + 'KB). Kurangi ukuran gambar.');
+    return;
+  }
+
+  try {
+    showToast('💾 Menyimpan...');
+    const res = await fetch(API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-admin-token': sessionStorage.getItem('admin_token') || '' },
+      body: payload,
+    });
+
+    const text = await res.text();
+    let result;
+    try { result = JSON.parse(text); }
+    catch(pe) {
+      console.error('Non-JSON response:', text.slice(0, 300));
+      throw new Error('Netlify Function belum aktif. Pastikan sudah deploy ulang ke Netlify setelah update file.');
+    }
+
+    if (result.success) {
+      try { localStorage.setItem('portfolio_state', payload); } catch(e) {}
+      showToast('✓ Tersimpan permanen!');
+    } else {
+      console.error('Save error detail:', result);
+      showToast('⚠ Gagal: ' + (result.error || 'Cek Netlify Functions log'));
+    }
+  } catch (e) {
+    console.error('saveToBlobs error:', e.message);
+    try {
+      localStorage.setItem('portfolio_state', payload);
+      showToast('✓ Tersimpan lokal. Upload file baru ke GitHub untuk aktifkan Blobs.');
+    } catch(le) {
+      showToast('⚠ Error: ' + e.message);
+    }
+  }
+}
+
+// ── INIT ──
+// Real content baked in: page renders instantly, API only reflects later admin edits
+Object.assign(STATE, {"name": "Thesar Pandji", "tagline": "Designing with purpose and strategy to create meaningful products.", "availability": "Available for all opportunities", "location": "Jakarta, Indonesia", "email": "thesarpandji@gmail.com", "bio1": "I am driven by curiosity and a strong desire to understand users deeply. Through research, validation, and continuous iteration. ", "bio2": "My goal is simple: to craft experiences that users genuinely enjoy while helping companies achieve measurable results.", "contactSub": "I’m open to new opportunities and collaborations. Let’s talk.", "stats": [], "projects": [{"title": "Gold Campaign SawitPRO 2025", "desc": "End-to-end design · Gamification · Interaction · Figma ·", "tag": "Mobile App Gamification", "link": "https://statuesque-attempt-d08.notion.site/Gold-Campaign-SawitPRO-2025-26b53c650fc4806f959dd04a5e79bd83?pvs=143", "color": 1, "image": "/img/project-0.png"}, {"title": "SawitPRO Design System", "desc": "Design System · Design Guideline", "tag": "Design System", "link": "https://statuesque-attempt-d08.notion.site/SawitPRO-Design-System-1c7f5225bba448e5bca6262b78c172bf?pvs=143", "color": 2, "image": "/img/project-1.webp"}, {"title": "HEADWAY Assesment Responsive Web Design", "desc": "End-to-end design · UX Research · Web & App · Web · Figma ·", "tag": "Assesment AI", "link": "https://statuesque-attempt-d08.notion.site/Seamless-Assesment-Platform-30c53c650fc4803ba31be2af6567e4f0?pvs=143", "color": 3, "image": "/img/project-2.png"}, {"title": "HEADWAY Assesment App", "desc": "End-to-end design · Web & App · Mobile · Figma ·", "tag": "Assesment AI", "link": "https://statuesque-attempt-d08.notion.site/HeadWay-Test-App-e14fec7094394e3a919dc9e265a1070a?pvs=143", "color": 4, "image": "/img/project-3.webp"}, {"title": "RamPlus: Supply Chain", "desc": "End-to-end design · UX Research · Mobile · Figma ·", "tag": "Delivery Tracking", "link": "https://statuesque-attempt-d08.notion.site/Enhance-Ramp-Farmers-Income-1c053c650fc480929d76d69edfff97cd?pvs=143", "color": 5, "image": "/img/project-4.png"}, {"title": "Quehome", "desc": "AR · Mobile · Figma ·", "tag": "AUGMENTED REALITY", "link": "https://www.figma.com/deck/mmjhKiGkIsZ1eUzt4LfiyW/Untitled?node-id=1-11&t=B1xu2crOresroCmQ-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1", "color": 6, "image": "/img/project-5.png"}], "socials": [{"label": "LinkedIn", "url": "https://www.linkedin.com/in/thesar-pandji-o-b136841ba/"}, {"label": "Resume / CV", "url": "https://drive.google.com/file/d/1x3KaDtx7-pavY_EeYJY16u07eHYm1049/view?usp=sharing"}]});
+
+loadFromBlobs();
+</script>
+</body>
+</html>

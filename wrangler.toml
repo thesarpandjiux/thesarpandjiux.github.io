@@ -1,0 +1,7 @@
+name = "thesarpandji"
+pages_build_output_dir = "."
+compatibility_date = "2026-07-29"
+
+[[kv_namespaces]]
+binding = "PORTFOLIO_KV"
+id = "941cac23a63a4715aed84185c1045f4a"

@@ -1,0 +1,4 @@
+seed-data.json
+seed-slim.json
+node_modules/
+.wrangler/
