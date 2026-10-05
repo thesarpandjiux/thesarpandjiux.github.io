@@ -300,6 +300,12 @@
   }
   .project-item-title { font-family:'Syne',sans-serif; font-weight:600; font-size:14px; color:var(--white); }
   .project-item-arrow { color:var(--muted); font-size:12px; transition:transform .2s; }
+  .project-item-header { gap:8px; }
+  .project-item-title { flex:1; }
+  .drag-handle { cursor:grab; color:var(--muted); font-size:16px; user-select:none; padding:0 4px; }
+  .move-btn { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:var(--white); border-radius:6px; width:26px; height:26px; cursor:pointer; font-size:12px; }
+  .move-btn:disabled { opacity:.3; cursor:default; }
+  .project-item.drag-over { border-color:var(--accent); }
   .project-item.collapsed .project-fields { display:none; }
   .project-item.collapsed .project-item-arrow { transform:rotate(-90deg); }
   .project-fields { display:flex; flex-direction:column; gap:10px; }
@@ -828,9 +834,16 @@ function deleteStat(i) {
 function renderProjectsList() {
   const list = document.getElementById('projects-list');
   list.innerHTML = STATE.projects.map((p,i) => `
-    <div class="project-item" id="proj-item-${i}">
+    <div class="project-item" id="proj-item-${i}"
+      ondragover="event.preventDefault();this.classList.add('drag-over')"
+      ondragleave="this.classList.remove('drag-over')"
+      ondrop="event.preventDefault();moveProject(+event.dataTransfer.getData('text/plain'), ${i})">
       <div class="project-item-header" onclick="toggleProject(${i})">
+        <span class="drag-handle" draggable="true" title="Drag untuk ubah urutan" onclick="event.stopPropagation()"
+          ondragstart="event.dataTransfer.setData('text/plain','${i}')">⠿</span>
         <span class="project-item-title">${p.title || 'Proyek Baru'}</span>
+        <button class="move-btn" title="Naik" ${i===0?'disabled':''} onclick="event.stopPropagation();moveProject(${i},${i-1})">▲</button>
+        <button class="move-btn" title="Turun" ${i===STATE.projects.length-1?'disabled':''} onclick="event.stopPropagation();moveProject(${i},${i+1})">▼</button>
         <span class="project-item-arrow">▾</span>
       </div>
       <div class="project-fields">
@@ -962,6 +975,12 @@ function uploadProjectImage(i, input) {
     showToast('✓ Gambar berhasil diupload!');
   };
   reader.readAsDataURL(file);
+}
+function moveProject(from, to) {
+  if (from === to || to < 0 || to >= STATE.projects.length) { renderProjectsList(); return; }
+  STATE.projects.splice(to, 0, STATE.projects.splice(from, 1)[0]);
+  renderProjectsList();
+  renderPortfolio();
 }
 function deleteProject(i) {
   STATE.projects.splice(i, 1);
